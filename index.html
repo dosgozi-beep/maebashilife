@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>マエバシライフ｜前橋を、暮らす。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,6 +263,7 @@
   .tama-status {
     position: relative; z-index: 5;
     padding: 8px 10px 0;
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr auto auto;
     gap: 5px;
@@ -3423,82 +3424,112 @@
     .side-title { font-size: 32px; }
   }
 </style>
+
+<style>
+/* ============================================================
+   MOBILE FULLSCREEN OVERRIDE
+   Strips phone frame, makes app fullscreen
+   ============================================================ */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  background: #050a1a !important;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+body::before {
+  display: none !important;
+}
+.stage {
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  height: 100% !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  max-width: none !important;
+}
+.stage::before { display: none !important; }
+.side-panel { display: none !important; }
+
+.phone-wrap {
+  width: 100% !important;
+  height: 100% !important;
+  justify-self: stretch !important;
+  margin: 0 !important;
+}
+.phone-glow { display: none !important; }
+
+.phone {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: #050a1a !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.phone::before,
+.phone::after {
+  display: none !important;
+}
+
+.screen-container {
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  inset: 0;
+}
+
+/* Hide fake status bar since real phone has its own */
+.status-bar { display: none !important; }
+
+/* Adjust home screen padding since no fake status bar */
+.tama-home {
+  padding-top: env(safe-area-inset-top, 0) !important;
+}
+.screen-content {
+  padding-top: env(safe-area-inset-top, 0) !important;
+}
+
+/* Bottom nav safe area */
+.bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0) !important;
+}
+
+/* Prevent rubber-band scroll on iOS */
+.screen {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+</style>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="マエバシライフ">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#050a1a">
+
 </head>
 <body>
 
 <div class="stage">
 
-  <!-- ========== LEFT SIDE PANEL ========== -->
-  <aside class="side-panel left">
-    <div class="brand">
-      <span class="brand-dot"></span>
-      MAEBASHI LIFE
-    </div>
-    <h1 class="side-title">マエバシ<br>ライフ<span class="accent">.</span></h1>
-    <div class="side-caption" style="color: var(--teten);">▶ MAEBASHI, JUST LIVE IT 🛸</div>
-    <p class="side-sub">
-      前橋の街を、青猫とテテンと一緒に暮らすアプリ。
-      朔太郎の詩を読み、まちの人に会い、今日を楽しむ。
-      たまごっち×街歩きコンパニオン、マエバシライフが起動しました🐾
-    </p>
-
-    <div class="side-caption" style="margin-top: 24px;">▶ 新機能を試してみて</div>
-    <ul class="feature-list">
-      <li>
-        <div class="feature-num" style="background: var(--teten); color: #0a4a2a;">🛸</div>
-        <div>
-          <strong>テテン登場</strong>
-          <span>チャットで話題ボタンを押すと、青猫&amp;テテンが二人で解説</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--yellow); color: #1a1206;">📖</div>
-        <div>
-          <strong>朔太郎の詩</strong>
-          <span>「朔太郎の詩」ボタン → 詩カードが会話中に登場</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--green); color: #020a08;">📅</div>
-        <div>
-          <strong>きょうボタン</strong>
-          <span>今日と今後の前橋イベント一覧を表示</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--magenta); color: white;">🐾</div>
-        <div>
-          <strong>肉球スタンプ</strong>
-          <span>「あった人」タップで肉球ゲット（ホーム&amp;ウォレットで確認）</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--orange); color: #2a1206;">⏳</div>
-        <div>
-          <strong>砂時計</strong>
-          <span>ウォレット右上。溜まった砂で進捗が一目でわかる</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--cyan); color: #0a1628;">🐈</div>
-        <div>
-          <strong>なめらか歩行</strong>
-          <span>「あった人」の青猫は透過PNGで背景になじみ、30秒周期でゆったり歩行</span>
-        </div>
-      </li>
-    </ul>
-  </aside>
+  
 
   <!-- ========== PHONE ========== -->
   <div class="phone-wrap">
     <div class="phone-glow"></div>
     <div class="phone">
       <div class="screen-container">
-
-        <div class="status-bar">
-          <span>9:41</span>
-          <span class="status-icons"></span>
-        </div>
 
         <!-- ========== HOME ========== -->
         <section class="screen active" id="screen-home">
@@ -4153,57 +4184,7 @@
   </div>
 
   <!-- ========== RIGHT SIDE PANEL ========== -->
-  <aside class="side-panel right">
-    <div class="side-caption">▶ 使用画像一覧（全18枚）</div>
-    <ul class="feature-list">
-      <li>
-        <div class="feature-num" style="background: #7ff5ff; color: #003d55;">猫</div>
-        <div>
-          <strong>ねこっと 5ポーズ</strong>
-          <span>座り（基準）/ 歩く / 寝る / 喜ぶ / 食べる / 驚く</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--magenta); color: white;">背</div>
-        <div>
-          <strong>背景シーン 5枚</strong>
-          <span>窓の夕焼け / お部屋 / 前橋公園 / 商店街 / 中央前橋駅</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--yellow); color: #1a1206;">人</div>
-        <div>
-          <strong>人物キャラ 4人</strong>
-          <span>ドスゴジ / ビープ / 朔太郎亡霊 / ガレア店主</span>
-        </div>
-      </li>
-      <li>
-        <div class="feature-num" style="background: var(--green); color: #020a08;">UI</div>
-        <div>
-          <strong>UI素材 3点</strong>
-          <span>ミニポスター / 差し入れアイコン / ウォレットオーブ</span>
-        </div>
-      </li>
-    </ul>
-
-    <div class="side-caption" style="margin-top: 24px;">▶ たまごっち的な反応</div>
-    <p class="side-sub" style="font-size: 12px;">
-      「なでる」を押すと <strong style="color: var(--magenta);">喜びポーズ</strong>に、
-      「おやつ」で <strong style="color: var(--yellow);">魚を食べるポーズ</strong>に、
-      「きょう」で <strong style="color: var(--cyan);">驚きポーズ</strong>に変化。
-      一瞬でもとのポーズに戻るので、触るたびに反応してくれます🐾
-    </p>
-
-    <div class="side-caption" style="margin-top: 24px;">▶ 次のステップ</div>
-    <p class="side-sub" style="font-size: 11.5px;">
-      ▸ 人物画像の背景透過処理（remove.bg）→ 街に自然に溶け込む<br>
-      ▸ 実在店舗・人物の写真と差し替え<br>
-      ▸ LINE連携（差し入れ受け取りQR）<br>
-      ▸ マエアンPODCASTのAPI連動<br>
-      ▸ ウォレットPT付与ルール確定<br>
-      ▸ 第2章の謎解きコンテンツ制作
-    </p>
-  </aside>
+  
 
 </div>
 
